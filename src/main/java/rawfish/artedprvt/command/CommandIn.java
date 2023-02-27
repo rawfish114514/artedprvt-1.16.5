@@ -35,4 +35,9 @@ public class CommandIn extends CommandIs {
     {
         return 0;
     }
+
+    @Override
+    public String getArgumentName(){
+        return "input";
+    }
 }

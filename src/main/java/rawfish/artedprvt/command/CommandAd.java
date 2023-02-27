@@ -42,7 +42,7 @@ public class CommandAd extends CommandIs {
     public void processCommand(CommandSource sender, String[] args) throws CommandException
     {
         if (args.length > 0) {
-            throw new WrongUsageException("commands.ad.usage");
+            throw new WrongUsageException(sender,"commands.ad.usage");
         }
         ScriptConst.debug=!ScriptConst.debug;
         sender.sendSuccess(new StringTextComponent("Debug模式: "+ScriptConst.debug),false);
@@ -51,5 +51,10 @@ public class CommandAd extends CommandIs {
     public int getRequiredPermissionLevel()
     {
         return 0;
+    }
+
+    @Override
+    public String getArgumentName(){
+        return "null";
     }
 }

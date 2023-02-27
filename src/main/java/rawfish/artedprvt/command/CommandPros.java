@@ -45,10 +45,10 @@ public class CommandPros extends CommandIs {
     public void processCommand(CommandSource sender, String[] args) throws CommandException
     {
         if (args.length > 0) {
-            throw new WrongUsageException("commands.pros.usage");
+            throw new WrongUsageException(sender,"commands.pros.usage");
         }
         if(ScriptProcess.proList.size()==0){
-            throw new WrongUsageException("commands.pros.usage");
+            throw new WrongUsageException(sender,"commands.pros.usage");
         }
         for(ScriptProcess pro:ScriptProcess.proList){
             StringTextComponent chat=new StringTextComponent(String.format("process: %s pid: %s",pro.getPack(),pro.getId()));
@@ -65,5 +65,10 @@ public class CommandPros extends CommandIs {
     public int getRequiredPermissionLevel()
     {
         return 0;
+    }
+
+    @Override
+    public String getArgumentName(){
+        return "null";
     }
 }

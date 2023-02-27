@@ -44,7 +44,7 @@ public class CommandAc extends CommandIs {
     public void processCommand(CommandSource sender, String[] args) throws CommandException
     {
         if (args.length > 0) {
-            throw new WrongUsageException("commands.ac.usage");
+            throw new WrongUsageException(sender,"commands.ac.usage");
         }
         ScriptConst.chat=!ScriptConst.chat;
         sender.sendSuccess(new StringTextComponent("Chat模式: "+ScriptConst.chat),false);
@@ -53,5 +53,10 @@ public class CommandAc extends CommandIs {
     public int getRequiredPermissionLevel()
     {
         return 0;
+    }
+
+    @Override
+    public String getArgumentName(){
+        return "null";
     }
 }

@@ -38,11 +38,16 @@ public class CommandApf extends CommandIs {
     @Override
     public void processCommand(CommandSource sender, String[] args) throws CommandException
     {
-        throw new WrongUsageException("commands.apf.usage");
+        throw new WrongUsageException(sender,"commands.apf.usage");
     }
     @Override
     public int getRequiredPermissionLevel()
     {
         return 0;
+    }
+
+    @Override
+    public String getArgumentName(){
+        return "key";
     }
 }

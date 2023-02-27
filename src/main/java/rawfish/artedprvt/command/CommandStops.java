@@ -25,10 +25,10 @@ public class CommandStops extends CommandIs {
     public void processCommand(CommandSource sender, String[] args) throws CommandException {
         ScriptProcess[] pros=new ScriptProcess[ScriptProcess.proList.size()];
         if(pros.length==0){
-            throw new WrongUsageException("commands.stops.usage");
+            throw new WrongUsageException(sender,"commands.stops.usage");
         }
         if(args.length>1){
-            throw new WrongUsageException("commands.stops.usage");
+            throw new WrongUsageException(sender,"commands.stops.usage");
         }
         ScriptProcess.proList.toArray(pros);
 
@@ -42,7 +42,7 @@ public class CommandStops extends CommandIs {
                 }
             }
             if(nisp){
-                throw new CommandException("找不到进程 请检查进程名或进程id");
+                throw new CommandException(sender,"找不到进程 请检查进程名或进程id");
             }
         }else {
             for (ScriptProcess pro : pros) {
@@ -55,5 +55,10 @@ public class CommandStops extends CommandIs {
     public int getRequiredPermissionLevel()
     {
         return 0;
+    }
+
+    @Override
+    public String getArgumentName(){
+        return "name|id";
     }
 }

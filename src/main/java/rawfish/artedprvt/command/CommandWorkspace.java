@@ -49,7 +49,7 @@ public class CommandWorkspace extends CommandIs {
         File file;
         file=new File(dir);
         if(file.exists()){
-            throw new CommandException("目录/artedprvt已经存在");
+            throw new CommandException(sender,"目录/artedprvt已经存在");
         }
         file.mkdir();
 
@@ -92,5 +92,10 @@ public class CommandWorkspace extends CommandIs {
     public int getRequiredPermissionLevel()
     {
         return 0;
+    }
+
+    @Override
+    public String getArgumentName(){
+        return "null";
     }
 }

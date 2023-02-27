@@ -31,9 +31,9 @@ public class CommandScript extends CommandIs {
     }
 
     @Override
-    public void processCommand(CommandSource senderIn, String[] argsIn) throws CommandException {
+    public void processCommand(CommandSource sender, String[] argsIn) throws CommandException {
         if(argsIn.length<1){
-            throw new WrongUsageException("commands.script.usage");
+            throw new WrongUsageException(sender,"commands.script.usage");
         }
 
         //去空参数
@@ -48,23 +48,23 @@ public class CommandScript extends CommandIs {
         int packindex=calpack(slist);
         if(packindex==-1){
             //没有包名
-            throw new CommandException("找不到包名 请检查参数");
+            throw new CommandException(sender,"找不到包名 请检查参数");
         }
 
         List<String> sargs=sargs(slist,packindex);//命令参数
         for(String sarg:sargs){
             if(!containsSargs(sarg)){
-                throw new CommandException("无效参数: "+sarg);
+                throw new CommandException(sender,"无效参数: "+sarg);
             }
             if(repeatSargs(sargs,sarg)){
-                throw new CommandException("重复参数: "+sarg);
+                throw new CommandException(sender,"重复参数: "+sarg);
             }
         }
 
         String pack=pack(slist,packindex);//脚本包名
         List<String> args=args(slist,packindex);//脚本参数
         String dir=System.getProperties().get("user.dir").toString()+"/artedprvt/src";//项目目录
-        ScriptProcess script=new ScriptProcess(senderIn,getCommandName(),dir,sargs,pack,args);
+        ScriptProcess script=new ScriptProcess(sender,getCommandName(),dir,sargs,pack,args);
 
         if(script.getRet()==0) {
             script.start();
@@ -131,5 +131,10 @@ public class CommandScript extends CommandIs {
     public int getRequiredPermissionLevel()
     {
         return 0;
+    }
+
+    @Override
+    public String getArgumentName(){
+        return "[sargs...] <pack> [args...]";
     }
 }

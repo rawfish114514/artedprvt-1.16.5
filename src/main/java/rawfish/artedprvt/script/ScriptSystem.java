@@ -177,17 +177,12 @@ public class ScriptSystem {
     public static class CopyEvnet extends ClickEvent {
 
         public CopyEvnet(String theValue) {
-            super(null, theValue);
+            super(Action.COPY_TO_CLIPBOARD, theValue);
         }
 
         @Override
         public ClickEvent.Action getAction(){
-            set(getValue());
-            return null;
-        }
-
-        public void set(String str){
-            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(str),null);
+            return super.getAction();
         }
     }
 }

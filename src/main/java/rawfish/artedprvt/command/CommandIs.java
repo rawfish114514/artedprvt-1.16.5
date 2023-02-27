@@ -33,11 +33,11 @@ public abstract class CommandIs {
 
     public abstract int getRequiredPermissionLevel();
 
-
+    public abstract String getArgumentName();
 
     public void register(CommandDispatcher<CommandSource> dispatcher) {
         RequiredArgumentBuilder<CommandSource, MessageArgument.Message>
-                argumentSarg=Commands.argument("arg", MessageArgument.message())
+                argumentSarg=Commands.argument(getArgumentName(), MessageArgument.message())
                 .executes((commandSource)->{
                     String [] elem=commandSource.getInput().split(" ");
                     String[] arguments=new String[elem.length-1];

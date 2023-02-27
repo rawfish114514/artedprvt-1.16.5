@@ -75,15 +75,15 @@ public class ScriptProcess {
             try {
                 readPkg();
             } catch (Exception e) {
-                throw new CommandException("apkg: 加载文件失败");
+                throw new CommandException(sender,"apkg: 加载文件失败");
             }
             config=ScriptConfig.loads(pkgs.get("config.json"));
             if(config==null){
-                throw new CommandException("apkg: 未找到配置文件");
+                throw new CommandException(sender,"apkg: 未找到配置文件");
             }
 
             if(config.pkgError){
-                throw new CommandException("script: 读取配置时发生意外");
+                throw new CommandException(sender,"script: 读取配置时发生意外");
             }
             pack=(String)config.pkg.get("pack");
             name=packIn;
@@ -94,7 +94,7 @@ public class ScriptProcess {
 
         if(config!=null) {
             if(config.error){
-                throw new CommandException("script: 读取配置时发生意外");
+                throw new CommandException(sender,"script: 读取配置时发生意外");
             }
             for(Object sarg:config.options){
                 if(sargList.contains(String.valueOf(sarg))){
