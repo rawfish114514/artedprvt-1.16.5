@@ -14,7 +14,8 @@ public class ClassLevel {
      * @return clas是混淆类
      */
     public static boolean isConfuseClass(Scriptable scope, Class clas){
-            //貌似所有net/minecraft下的类都是混淆类且混淆类都在net/minecraft下
+            //貌似所有net/minecraft下的类都是混淆类
+            //以及com/mojang下的类
             return isReConfuse(scope)&&concla(clas);
     }
     private static boolean concla(Class clas){
@@ -38,6 +39,12 @@ public class ClassLevel {
     }
     private static boolean isNetMinecraft(Class clas){
         String name=clas.getName();
+        if(name.length()<11){
+            return false;
+        }
+        if(name.substring(0,11).equals("com.mojang.")){
+            return true;
+        }
         if(name.length()<14){
             return false;
         }
