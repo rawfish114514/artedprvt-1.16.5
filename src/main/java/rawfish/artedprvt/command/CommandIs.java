@@ -1,11 +1,17 @@
 package rawfish.artedprvt.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
+import net.minecraft.command.arguments.MessageArgument;
 import net.minecraft.server.MinecraftServer;
+
+import java.util.ArrayList;
+
 public abstract class CommandIs {
 
     public String getName() {
@@ -28,13 +34,22 @@ public abstract class CommandIs {
     public abstract int getRequiredPermissionLevel();
 
 
+
     public void register(CommandDispatcher<CommandSource> dispatcher) {
-        dispatcher.register(Commands.literal(getCommandName())
-                .requires((commandSource)->{return commandSource.hasPermission(getRequiredPermissionLevel());})
+        RequiredArgumentBuilder<CommandSource, MessageArgument.Message>
+                argumentSarg=Commands.argument("arg", MessageArgument.message())
                 .executes((commandSource)->{
-                    processCommand((CommandSource) commandSource.getSource(),commandSource.getInput().split(" "));
+                    String [] elem=commandSource.getInput().split(" ");
+                    String[] arguments=new String[elem.length-1];
+                    System.arraycopy(elem, 1, arguments, 0, arguments.length);
+                    processCommand(commandSource.getSource(),arguments);
                     return 0;
-                })
-        );
+                });
+        LiteralArgumentBuilder<CommandSource>
+                command=Commands.literal(getCommandName())
+                .requires((commandSource)->{return commandSource.hasPermission(getRequiredPermissionLevel());})
+                .then(argumentSarg);
+
+        dispatcher.register(command);
     }
 }

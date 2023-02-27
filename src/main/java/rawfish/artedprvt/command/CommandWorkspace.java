@@ -1,6 +1,9 @@
 package rawfish.artedprvt.command;
 
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
 import net.minecraft.util.text.StringTextComponent;
 import rawfish.artedprvt.command.adapter.CommandException;
 import rawfish.artedprvt.id.FormatCode;
@@ -11,6 +14,18 @@ import java.io.IOException;
 import java.io.Writer;
 
 public class CommandWorkspace extends CommandIs {
+    @Override
+    public void register(CommandDispatcher<CommandSource> dispatcher) {
+        LiteralArgumentBuilder<CommandSource>
+                command= Commands.literal(getCommandName())
+                .requires((commandSource)->{return commandSource.hasPermission(getRequiredPermissionLevel());})
+                .executes((commandSource)->{
+                    processCommand(commandSource.getSource(),new String[0]);
+                    return 0;
+                });
+        dispatcher.register(command);
+    }
+
     public CommandWorkspace(String nameIn){
         name=nameIn;
     }

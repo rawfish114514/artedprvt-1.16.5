@@ -1,12 +1,29 @@
 package rawfish.artedprvt.command;
 
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
+import net.minecraft.command.arguments.MessageArgument;
 import net.minecraft.util.text.StringTextComponent;
 import rawfish.artedprvt.command.adapter.WrongUsageException;
 import rawfish.artedprvt.script.ScriptConst;
 
 public class CommandAc extends CommandIs {
+    @Override
+    public void register(CommandDispatcher<CommandSource> dispatcher) {
+        LiteralArgumentBuilder<CommandSource>
+                command=Commands.literal(getCommandName())
+                .requires((commandSource)->{return commandSource.hasPermission(getRequiredPermissionLevel());})
+                        .executes((commandSource)->{
+                            processCommand(commandSource.getSource(),new String[0]);
+                            return 0;
+                        });
+        dispatcher.register(command);
+    }
+
     public CommandAc(String nameIn){
         name=nameIn;
     }

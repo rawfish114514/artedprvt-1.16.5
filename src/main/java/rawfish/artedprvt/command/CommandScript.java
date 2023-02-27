@@ -1,6 +1,12 @@
 package rawfish.artedprvt.command;
 
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
+import net.minecraft.command.arguments.MessageArgument;
 import rawfish.artedprvt.command.adapter.CommandException;
 import rawfish.artedprvt.command.adapter.WrongUsageException;
 import rawfish.artedprvt.script.ScriptProcess;
