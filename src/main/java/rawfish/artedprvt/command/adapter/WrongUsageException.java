@@ -9,7 +9,8 @@ import net.minecraft.util.text.TranslationTextComponent;
  */
 public class WrongUsageException extends RuntimeException{
     public WrongUsageException(CommandSource senderIn,String str){
-        super(new net.minecraft.command.CommandException(new TranslationTextComponent(str)));
+        //super(new net.minecraft.command.CommandException(new TranslationTextComponent(str)));
         senderIn.sendSuccess(new TranslationTextComponent(str),false);
+        System.out.println(new TranslationTextComponent(str).getString());
     }
 }
