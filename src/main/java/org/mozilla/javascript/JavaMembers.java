@@ -31,7 +31,7 @@ import javax.lang.model.SourceVersion;
  * @see NativeJavaObject
  * @see NativeJavaClass
  */
-class JavaMembers {
+public class JavaMembers {
 
     private static final boolean STRICT_REFLECTIVE_ACCESS =
             SourceVersion.latestSupported().ordinal() > 8;
@@ -68,7 +68,7 @@ class JavaMembers {
         return findExplicitFunction(name, isStatic) != null;
     }
 
-    Object get(Scriptable scope, String name, Object javaObject, boolean isStatic) {
+    public Object get(Scriptable scope, String name, Object javaObject, boolean isStatic) {
         Map<String, Object> ht = isStatic ? staticMembers : members;
         Object member = ht.get(name);
         if (!isStatic && member == null) {
@@ -759,7 +759,8 @@ class JavaMembers {
         int len = ht.size();
         Map<String, FieldAndMethods> result = new HashMap<String, FieldAndMethods>(len);
         for (FieldAndMethods fam : ht.values()) {
-            FieldAndMethods famNew = new FieldAndMethods(scope, fam.methods, fam.field);
+            FieldAndMethods famNew;
+            famNew=new FieldAndMethods(scope, fam.methods, fam.field);
             famNew.javaObject = javaObject;
             result.put(fam.field.getName(), famNew);
         }
