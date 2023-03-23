@@ -45,11 +45,17 @@ public class ScriptSystem {
         if(ScriptConst.chat) {
             StringTextComponent chat=new StringTextComponent(String.valueOf(object));
             String hs=String.valueOf(hover);
+            StringTextComponent hoverComponent;
+            if(hover instanceof StringTextComponent){
+                hoverComponent=(StringTextComponent)hover;
+            }else{
+                hoverComponent=new StringTextComponent(hs);
+            }
             if(!(hs.equals("null")||hs.equals("undefined"))){
                 chat.setStyle(
                         Style.EMPTY
-                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(hs)))
-                                .withClickEvent(new CopyEvnet(hs.replaceAll("\u00a7[0-9a-fk-or]","")))
+                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,hoverComponent))
+                                .withClickEvent(new CopyEvnet(hoverComponent))
                 );
             }
             sender.sendSuccess(chat,false);
@@ -78,11 +84,17 @@ public class ScriptSystem {
             }
             StringTextComponent chat=new StringTextComponent(FormatCode.COLOR_7+head+FormatCode.FONT_r+String.valueOf(object));
             String hs=String.valueOf(hover);
+            StringTextComponent hoverComponent;
+            if(hover instanceof StringTextComponent){
+                hoverComponent=(StringTextComponent)hover;
+            }else{
+                hoverComponent=new StringTextComponent(hs);
+            }
             if(!(hs.equals("null")||hs.equals("undefined"))){
                 chat.setStyle(
                         Style.EMPTY
-                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(hs)))
-                                .withClickEvent(new CopyEvnet(hs.replaceAll("\u00a7[0-9a-fk-or]","")))
+                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,hoverComponent))
+                                .withClickEvent(new CopyEvnet(hoverComponent))
                 );
             }
             sender.sendSuccess(chat,false);
@@ -194,11 +206,15 @@ public class ScriptSystem {
      * 点击复制事件
      */
     public static class CopyEvnet extends ClickEvent {
-
-        public CopyEvnet(String theValue) {
-            super(Action.COPY_TO_CLIPBOARD, theValue);
+        public StringTextComponent component;
+        public CopyEvnet(StringTextComponent component) {
+            super(Action.COPY_TO_CLIPBOARD, null);
+            this.component=component;
         }
 
+        public String getValue(){
+            return component.getContents().replaceAll("\u00a7[0-9a-fk-or]","");
+        }
         @Override
         public ClickEvent.Action getAction(){
             return super.getAction();

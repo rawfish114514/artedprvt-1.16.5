@@ -51,14 +51,22 @@ public class CommandPros extends CommandIs {
             throw new WrongUsageException(sender,"commands.pros.usage");
         }
         for(ScriptProcess pro:ScriptProcess.proList){
-            StringTextComponent chat=new StringTextComponent(String.format("process: %s pid: %s",pro.getPack(),pro.getId()));
             int ret=pro.getRet();
             if(ret!=0&&ret!=1){
-                String hover=pro.getStatistics();
-                chat.setStyle(Style.EMPTY.withHoverEvent(
-                        new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(String.valueOf(hover)))));
+                pro.getSys().print(pro.getPack(),
+                        String.format("process: %s pid: %s",pro.getPack(),pro.getId()),
+                        new StringTextComponent(null){
+                            public String hover=null;
+                            @Override
+                            public String getContents()
+                            {
+                                if(pro.getRet()!=7){
+                                    hover=pro.getStatistics();
+                                }
+                                return String.valueOf(hover);
+                            }
+                        });
             }
-            sender.sendSuccess(chat,false);
         }
     }
     @Override
