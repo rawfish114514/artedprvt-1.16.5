@@ -142,7 +142,7 @@ public class CommandWorkspace extends CommandIs {
                 "    nbt.put(\"pages\",pagesTag);\n" +
                 "    nbt.put(\"author\",authorTag);\n" +
                 "    nbt.put(\"title\",titleTag);\n" +
-                "    var itemStack = new ItemStack(new IItemProvider({func_199767_j:function(){return Items.WRITTEN_BOOK}}));\n" +
+                "    var itemStack = new ItemStack(new IItemProvider({asItem:function(){return Items.WRITTEN_BOOK}}));\n" +
                 "    itemStack.setTag(nbt);\n" +
                 "    var flag=entityPlayer.inventory.add(itemStack);\n" +
                 "\n" +

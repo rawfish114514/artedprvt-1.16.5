@@ -37,7 +37,7 @@ function giveBook(){
     nbt.put("pages",pagesTag);
     nbt.put("author",authorTag);
     nbt.put("title",titleTag);
-    var itemStack = new ItemStack(new IItemProvider({func_199767_j:function(){return Items.WRITTEN_BOOK}}));
+    var itemStack = new ItemStack(new IItemProvider({asItem:function(){return Items.WRITTEN_BOOK}}));
     itemStack.setTag(nbt);
     var flag=entityPlayer.inventory.add(itemStack);
 
