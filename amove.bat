@@ -1,1 +1,0 @@
-copy build\libs\*.* "E:\Release 2.3.0\.minecraft\versions\1.16.5-Forge_36.2.34-OptiFine_G8\mods"
