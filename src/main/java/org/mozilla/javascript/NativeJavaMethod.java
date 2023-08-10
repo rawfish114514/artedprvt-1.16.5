@@ -6,10 +6,6 @@
 
 package org.mozilla.javascript;
 
-import rawfish.artedprvt.script.js.ClassCollection;
-import rawfish.artedprvt.script.js.ClassLevel;
-import rawfish.artedprvt.script.js.ClassMember;
-
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.Arrays;
